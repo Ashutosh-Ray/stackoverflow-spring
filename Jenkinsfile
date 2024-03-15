@@ -30,8 +30,8 @@ pipeline {
     post {
         always {
             mail to: 'manoj.ray.puri@gmail.com',
-                 subject: 'Pipeline Status',
-                 body: 'Summary'
+                 subject: "Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+                 body: "Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL}) finished."
         }
     }
 }
