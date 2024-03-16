@@ -1,6 +1,9 @@
 pipeline {
     agent any
-
+    tools{
+        maven 'Maven 3.6.3'
+        jdk 'OpenJDK 11'
+    }
     stages {
         stage('Checkout') {
             steps {
@@ -10,13 +13,13 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh './mvnw clean install'
+                sh 'mvn clean install'
             }
         }
 
         stage('Test') {
             steps {
-                sh './mvnw test'
+                sh 'mvn install'
             }
         }
 
@@ -30,8 +33,8 @@ pipeline {
     post {
         always {
             mail to: 'manoj.ray.puri@gmail.com',
-                 subject: "Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-                 body: "Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL}) finished."
+                 subject: "Pipeline",
+                 body: "Completed"
         }
     }
 }
