@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/Ashutosh-Ray/CollaborationTool-backend.git'
+                git 'https://github.com/Ashutosh-Ray/CollaborationTool-backend.git',branch: 'main', credentialsId: 'git',changelog: false
             }
         }
 
