@@ -15,7 +15,7 @@ import java.util.Map;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class SimpleCorsFilter implements Filter {
 
-    private String clientAppUrl = "http://localhost:4200/*";
+    private String clientAppUrl = "*";
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -28,8 +28,8 @@ public class SimpleCorsFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         Map<String, String> map = new HashMap<>();
 
-        String originHeader = request.getHeader("origin");
-        response.setHeader("Access-Control-Allow-Origin", originHeader);
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
         response.setHeader("Access-Control-Allow-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "*");

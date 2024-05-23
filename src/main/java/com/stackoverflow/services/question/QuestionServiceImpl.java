@@ -13,6 +13,8 @@ import com.stackoverflow.repositories.AnswerRepository;
 import com.stackoverflow.repositories.ImageRepository;
 import com.stackoverflow.repositories.QuestionRepository;
 import com.stackoverflow.repositories.UserRepository;
+import com.stackoverflow.services.answer.AnswerService;
+import com.stackoverflow.services.genai.GenerateResponseFromGPT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -42,6 +44,10 @@ public class QuestionServiceImpl implements  QuestionService{
 
     @Autowired
     ImageRepository imageRepository;
+    @Autowired
+    AnswerService answerService;
+    @Autowired
+    GenerateResponseFromGPT generateResponseFromGPT;
 
     @Override
     public QuestionDTO addQuestion(QuestionDTO questionDto) {
@@ -54,6 +60,8 @@ public class QuestionServiceImpl implements  QuestionService{
             question.setTags(questionDto.getTags());
             question.setUser(optionalUser.get());
             Question createdQuestion =  questionRepository.save(question);
+            questionDto.setId(createdQuestion.getId());
+            generateResponseFromGPT.saveResponseFromBot(questionDto);
 
             QuestionDTO createdQuestionDto = new QuestionDTO();
             createdQuestionDto.setId(createdQuestion.getId());

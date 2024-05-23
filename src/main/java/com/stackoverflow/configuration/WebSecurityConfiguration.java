@@ -19,7 +19,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-@EnableMethodSecurity
+//@EnableMethodSecurity
 @EnableWebSecurity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -33,7 +33,7 @@ public class WebSecurityConfiguration {
         security.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/signup", "/auth").permitAll()
+                                .requestMatchers("/signup","/helloWorld", "/auth").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManagement ->
