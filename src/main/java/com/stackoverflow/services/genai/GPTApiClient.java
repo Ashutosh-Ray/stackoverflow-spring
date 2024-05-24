@@ -26,11 +26,13 @@ public class GPTApiClient {
 
         try (CloseableHttpClient client = HttpClients.createDefault();
              CloseableHttpResponse response = client.execute(post)) {
+            System.out.println("GPT response "+response);
             if (response.getCode() != 200) {
                 throw new IOException("Token retrieval failed");
             }
 
             ObjectMapper mapper = new ObjectMapper();
+            System.out.println("Response "+response.getEntity().getContent());
             JsonNode rootNode = mapper.readTree(response.getEntity().getContent());
             return rootNode.get("access_token").asText();
         }

@@ -1,7 +1,7 @@
 package com.stackoverflow.dtos;
 
 public class GTPDto {
-    String query;
+    private String query;
 
     public GTPDto() {
     }

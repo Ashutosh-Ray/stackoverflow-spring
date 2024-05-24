@@ -19,15 +19,15 @@ public class GPTController {
     @Autowired
     GPTApiClient gptApiClient;
     @PostMapping("/getResponseFromGenAI")
-    public ResponseEntity<String> getResponseFromGenAI(@RequestBody GTPDto gptDto)  {
+    public String getResponseFromGenAI(@RequestBody GTPDto gptDto)  {
         String responseFromGenAI = "";
         try {
-            System.out.println("Query "+gptDto.getQuery());
             responseFromGenAI = gptApiClient.getResponseFromGpt(gptDto.getQuery());
         }
         catch (IOException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            System.out.println("Exception occured");
+            return e.getMessage();
         }
-        return new ResponseEntity<>(responseFromGenAI, HttpStatus.OK);
+        return responseFromGenAI;
     }
 }
