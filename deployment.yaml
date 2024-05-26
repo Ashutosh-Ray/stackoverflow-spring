@@ -33,3 +33,35 @@ spec:
       port: 8080
       targetPort: 5000
   type: NodePort
+
+---
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  name: istio
+spec:
+  controller: istio.io/ingress-controller
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: stackoverflow-spring
+spec:
+  ingressClassName: istio
+  rules:
+    - host: stackoverflow-spring.b7b0cfd.kyma.ondemand.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: stackoverflow-spring-svc
+                port:
+                  number: 8080
+  tls:
+    - hosts:
+      - stackoverflow-spring.b7b0cfd.kyma.ondemand.com
+      secretName: kyma-gateway-certs
