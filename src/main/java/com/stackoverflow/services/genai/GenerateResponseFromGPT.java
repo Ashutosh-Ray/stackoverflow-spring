@@ -36,7 +36,7 @@ public class GenerateResponseFromGPT {
         answerDto.setCreatedDate(new Date());
         answerDto.setUsername("StackExchangeBot");
         answerDto.setQuestionId(questionDTO.getId());
-        answerDto.setUserId(3L);
+        answerDto.setUserId(103L);
         return answerDto;
     }
 }
